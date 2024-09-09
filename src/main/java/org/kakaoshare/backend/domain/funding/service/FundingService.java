@@ -50,7 +50,7 @@ public class FundingService {
     @Transactional
     public RegisterResponse registerFundingItem(Long productId, String providerId, RegisterRequest request) {
         Product product = findProductById(productId);
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
 
         validateGoalAmount(request.goalAmount(), product.getPrice());
 
@@ -68,14 +68,14 @@ public class FundingService {
     }
 
     public ProgressResponse getFundingItemProgress(Long fundingId, String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         Funding funding = findByIdAndMemberId(fundingId, member.getMemberId());
 
         return getFundingProgress(funding.getFundingId(), member.getMemberId());
     }
 
     public ProgressResponse getMyFundingProgress(String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         Funding funding = fundingRepository.findByMemberIdAndStatus(member.getMemberId(), FundingStatus.PROGRESS)
                 .orElse(null);
 
@@ -87,8 +87,8 @@ public class FundingService {
 
 
     public ProgressResponse getFriendFundingProgress(String providerId, FriendFundingInquiryRequest inquiryRequest) {
-        Member self = findMemberByProviderId(providerId);
-        Member friend = findMemberByProviderId(inquiryRequest.friendProviderId()); //todo 친구 검증 메소드 추가해야함
+        Member self = memberRepository.findMemberByProviderId(providerId);
+        Member friend = memberRepository.findMemberByProviderId(inquiryRequest.friendProviderId()); //todo 친구 검증 메소드 추가해야함
         return fundingRepository.findByMemberIdAndStatus(friend.getMemberId(), FundingStatus.PROGRESS)
                 .map(funding -> getFundingProgress(funding.getFundingId(), friend.getMemberId()))
                 .orElse(new ProgressResponse());
@@ -96,7 +96,7 @@ public class FundingService {
 
     public PageResponse<?> getMyFilteredFundingProducts(String providerId, FundingStatus status,
                                                         Pageable pageable) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         Page<FundingResponse> fundingResponses = fundingRepository.findFundingByMemberIdAndStatusWithPage(
                 member.getMemberId(), status, pageable);
 
@@ -124,16 +124,11 @@ public class FundingService {
     }
 
     public ProgressResponse checkFundingItem(FundingCheckRequest fundingCheckRequest) {
-        Member member = findMemberByProviderId(fundingCheckRequest.getProviderId());
+        Member member = memberRepository.findMemberByProviderId(fundingCheckRequest.getProviderId());
         Funding funding = fundingRepository.findByMemberIdAndStatus(member.getMemberId(), FundingStatus.PROGRESS)
                 .orElseThrow(() -> new FundingException(FundingErrorCode.NOT_FOUND));
 
         return getFundingProgress(funding.getFundingId(), member.getMemberId());
-    }
-
-    private Member findMemberByProviderId(String providerId) {
-        return memberRepository.findMemberByProviderId(providerId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid providerId"));
     }
 
     private Product findProductById(Long productId) {

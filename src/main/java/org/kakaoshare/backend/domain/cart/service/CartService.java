@@ -36,7 +36,7 @@ public class CartService {
 
     @Transactional
     public CartRegisterResponse registerItem(CartRegisterRequest request, String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         Product product = findProductByProductId(request.getProductId());
         Option option = resolveOption(request.getOptionId(), product);
         OptionDetail optionDetail = resolveOptionDetail(request.getOptionDetailId(), option);
@@ -63,7 +63,7 @@ public class CartService {
 
     @Transactional
     public CartRegisterResponse updateItem(Long productId, String providerId, int newQuantity) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         Product product = findProductByProductId(productId);
 
         Cart cart = cartRepository.findByMemberIdAndProductId(member.getMemberId(), product.getProductId())
@@ -77,7 +77,7 @@ public class CartService {
 
     @Transactional
     public CartDeleteResponse deleteItem(Long productId, String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         Product product = findProductByProductId(productId);
 
         Cart cart = cartRepository.findByMemberIdAndProductId(member.getMemberId(), product.getProductId())
@@ -88,7 +88,7 @@ public class CartService {
     }
 
     public List<CartResponse> getCartItems(String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         List<Cart> carts = cartRepository.findByMemberId(member.getMemberId());
         return carts.stream()
                 .map(CartResponse::from)
@@ -96,7 +96,7 @@ public class CartService {
     }
 
     public CartItemCountResponse getCartItemCount(String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         int count = cartRepository.countByMemberId(member.getMemberId());
         return CartItemCountResponse.from(count);
     }
@@ -113,14 +113,9 @@ public class CartService {
 
     @Transactional
     public CartClearResponse clearCartItems(String providerId) {
-        Member member = findMemberByProviderId(providerId);
+        Member member = memberRepository.findMemberByProviderId(providerId);
         cartRepository.deleteByMemberId(member.getMemberId());
         return CartClearResponse.from();
-    }
-
-    private Member findMemberByProviderId(String providerId) {
-        return memberRepository.findMemberByProviderId(providerId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid providerId"));
     }
 
     private Product findProductByProductId(Long productId) {

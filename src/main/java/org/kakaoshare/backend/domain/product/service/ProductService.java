@@ -43,7 +43,7 @@ public class ProductService {
         Product product = findProductById(productId);
 
         if (providerId != null) {
-            Member member = findMemberById(providerId);
+            Member member = memberRepository.findMemberByProviderId(providerId);
             return productRepository.findProductWithDetailsAndPhotosWithMember(product, member);
         } else {
             return productRepository.findProductWithDetailsAndPhotosWithoutMember(product);
@@ -58,7 +58,7 @@ public class ProductService {
         }
 
         if (providerId != null) {
-            Member member = findMemberById(providerId);
+            Member member = memberRepository.findMemberByProviderId(providerId);
             return productRepository.findProductDetailWithMember(product, member);
         }
         return productRepository.findProductDetailWithoutMember(product);
@@ -113,10 +113,5 @@ public class ProductService {
     private Product findProductById(final Long productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new ProductException(ProductErrorCode.NOT_FOUND));
-    }
-
-    private Member findMemberById(final String providerId) {
-        return memberRepository.findMemberByProviderId(providerId).orElseThrow(() -> new MemberException(
-                MemberErrorCode.NOT_FOUND));
     }
 }

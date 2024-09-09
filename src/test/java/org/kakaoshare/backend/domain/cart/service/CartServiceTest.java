@@ -62,7 +62,7 @@ public class CartServiceTest {
         Option defaultOption = new Option(1L, "Default Option", product);
         OptionDetail defaultOptionDetail = new OptionDetail(1L, "Default Detail", 10, 1000L, null, defaultOption);
 
-        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(optionRepository.findByProductId(productId)).thenReturn(List.of(defaultOption)); // 기본 옵션 설정
         when(optionDetailRepository.findByOptionId(defaultOption.getOptionsId())).thenReturn(
@@ -97,7 +97,7 @@ public class CartServiceTest {
         Option defaultOption = new Option(1L, "Default Option", product);
         OptionDetail defaultOptionDetail = new OptionDetail(1L, "Default Detail", 10, 1000L, null, defaultOption);
 
-        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(optionRepository.findById(optionId)).thenReturn(Optional.of(defaultOption));
         when(optionDetailRepository.findById(optionDetailId)).thenReturn(Optional.of(defaultOptionDetail));
@@ -127,7 +127,7 @@ public class CartServiceTest {
         Product product = ProductFixture.TEST_PRODUCT.생성(1L);
         List<Cart> carts = List.of(new Cart(1L, 2, true, member, product, null, null));
 
-        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
         when(cartRepository.findByMemberId(member.getMemberId())).thenReturn(carts);
 
         List<CartResponse> responses = cartService.getCartItems(providerId);
@@ -148,7 +148,7 @@ public class CartServiceTest {
 
         List<Cart> carts = List.of(new Cart(1L, 3, true, member, product, option, optionDetail));
 
-        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
         when(cartRepository.findByMemberId(member.getMemberId())).thenReturn(carts);
 
         List<CartResponse> responses = cartService.getCartItems(providerId);
@@ -172,7 +172,7 @@ public class CartServiceTest {
         Product product = ProductFixture.TEST_PRODUCT.생성(1L);
         Cart cart = new Cart(1L, 2, true, member, product, null, null);
 
-        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(cartRepository.findByMemberIdAndProductId(member.getMemberId(), productId)).thenReturn(Optional.of(cart));
 
@@ -192,7 +192,7 @@ public class CartServiceTest {
         Product product = ProductFixture.TEST_PRODUCT.생성(1L);
         Cart cart = new Cart(1L, 2, true, member, product, null, null);
 
-        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
         when(cartRepository.findByMemberIdAndProductId(member.getMemberId(), productId)).thenReturn(Optional.of(cart));
 
@@ -214,7 +214,7 @@ public class CartServiceTest {
                 new Cart(2L, 1, true, member, product2, null, null)
         );
 
-        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
         when(cartRepository.countByMemberId(member.getMemberId())).thenReturn(carts.size());
 
         CartItemCountResponse response = cartService.getCartItemCount(providerId);

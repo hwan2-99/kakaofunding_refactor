@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.ConstructorExpression;
 import javax.annotation.processing.Generated;
+import org.kakaoshare.backend.domain.funding.dto.inquiry.response.ContributedFundingHistoryResponse;
 
 /**
  * org.kakaoshare.backend.domain.funding.dto.inquiry.QContributedFundingHistoryResponse is a Querydsl Projection type for ContributedFundingHistoryResponse

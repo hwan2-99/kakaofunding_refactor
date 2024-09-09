@@ -69,7 +69,7 @@ public class FundingServiceTest {
         Funding funding = FundingFixture.SAMPLE_FUNDING.생성(member, product);
 
         given(productRepository.findById(productId)).willReturn(Optional.of(product));
-        given(memberRepository.findMemberByProviderId(providerId)).willReturn(Optional.of(member));
+        given(memberRepository.findMemberByProviderId(providerId)).willReturn(member);
         given(fundingRepository.save(any(Funding.class))).willReturn(funding);
 
         RegisterResponse response = fundingService.registerFundingItem(productId, providerId, request);
@@ -89,7 +89,7 @@ public class FundingServiceTest {
         Member member = MemberFixture.KAKAO.생성();
 
         given(productRepository.findById(productId)).willReturn(Optional.of(product));
-        given(memberRepository.findMemberByProviderId(providerId)).willReturn(Optional.of(member));
+        given(memberRepository.findMemberByProviderId(providerId)).willReturn(member);
 
         assertThatThrownBy(() -> fundingService.registerFundingItem(productId, providerId, request))
                 .isInstanceOf(FundingException.class);
@@ -105,7 +105,7 @@ public class FundingServiceTest {
         Product product = ProductFixture.TEST_PRODUCT.생성(1L, brand);
         Funding funding = FundingFixture.SAMPLE_FUNDING.생성(1L, member, product);
 
-        given(memberRepository.findMemberByProviderId(member.getProviderId())).willReturn(Optional.of(member));
+        given(memberRepository.findMemberByProviderId(member.getProviderId())).willReturn(member);
         given(fundingRepository.findByIdAndMemberId(funding.getFundingId(), member.getMemberId())).willReturn(
                 Optional.of(funding));
 
@@ -125,7 +125,7 @@ public class FundingServiceTest {
         Product product = ProductFixture.TEST_PRODUCT.생성(1L, brand);
         Funding funding = FundingFixture.SAMPLE_FUNDING.생성(1L, member, product);
 
-        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
         when(fundingRepository.findByMemberIdAndStatus(member.getMemberId(), FundingStatus.PROGRESS)).thenReturn(
                 Optional.of(funding));
         when(fundingRepository.findByIdAndMemberId(funding.getFundingId(), member.getMemberId())).thenReturn(
@@ -155,7 +155,7 @@ public class FundingServiceTest {
         );
         Page<FundingResponse> fundingPage = new PageImpl<>(fundingResponses, pageable, fundingResponses.size());
 
-        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
         when(fundingRepository.findFundingByMemberIdAndStatusWithPage(
                 eq(member.getMemberId()), nullable(FundingStatus.class), eq(pageable)))
                 .thenReturn(fundingPage);
@@ -185,7 +185,7 @@ public class FundingServiceTest {
         Page<FundingResponse> allFundingsPage = new PageImpl<>(fundingResponses, pageable, fundingResponses.size());
         Page<FundingResponse> cancelFundingsPage = new PageImpl<>(List.of(FundingResponse.from(funding1)), pageable, 1);
 
-        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(Optional.of(member));
+        when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
         when(fundingRepository.findFundingByMemberIdAndStatusWithPage(
                 eq(member.getMemberId()), eq(FundingStatus.CANCEL), eq(pageable)))
                 .thenReturn(cancelFundingsPage);

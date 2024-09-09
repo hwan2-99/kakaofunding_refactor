@@ -1,11 +1,9 @@
 package org.kakaoshare.backend.domain.product.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.kakaoshare.backend.common.error.exception.BusinessException;
 import org.kakaoshare.backend.domain.member.entity.Member;
 import org.kakaoshare.backend.domain.member.repository.MemberRepository;
 import org.kakaoshare.backend.domain.product.dto.DescriptionResponse;
@@ -32,8 +30,6 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
 
-    private final Long nonExistingProductId = 2L;
-
     @Test
     @DisplayName("상품 상세정보 조회 성공")
     void getProductDetail_Success() {
@@ -47,7 +43,7 @@ public class ProductServiceTest {
                 .build();
 
         when(memberRepository.findMemberByProviderId(member.getProviderId()))
-                .thenReturn(Optional.of(member));
+                .thenReturn(member);
         when(productRepository.findById(productId))
                 .thenReturn(Optional.of(product));
         when(productRepository.findProductDetailWithMember(product, member))
@@ -70,7 +66,7 @@ public class ProductServiceTest {
                 .build();
 
         when(memberRepository.findMemberByProviderId(member.getProviderId()))
-                .thenReturn(Optional.of(member));
+                .thenReturn(member);
         when(productRepository.findById(productId))
                 .thenReturn(Optional.of(product));
         doReturn(expectedDescriptionResponse)

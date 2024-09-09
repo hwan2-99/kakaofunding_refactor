@@ -56,7 +56,7 @@ public class WishService {
             notRecoverable = MemberException.class
     )
     public void handleWishReservation(WishReservationEvent event) {
-        Member member = getMember(event.getProviderId());
+        Member member = memberRepository.findMemberByProviderId(event.getProviderId());
         Wish wish = createWish(event, member);
         wish.checkIsPublic(event.getType());
         
@@ -81,7 +81,7 @@ public class WishService {
             notRecoverable = MemberException.class
     )
     public void handleWishCancel(WishCancelEvent event) {
-        final Member member = getMember(event.getProviderId());
+        final Member member = memberRepository.findMemberByProviderId(event.getProviderId());
         final Product product = event.getProduct();
         
         try {
@@ -101,12 +101,6 @@ public class WishService {
     public void recoverCancel(RuntimeException e, WishCancelEvent event) {
         log.error("wish cancel failed: {}", e.getMessage());
         event.getProduct().increaseWishCount();
-    }
-    
-    
-    public Member getMember(final String providerId) {
-        return memberRepository.findMemberByProviderId(providerId)
-                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_FOUND));
     }
     
     public PageResponse<?> getMembersWishList(final Pageable pageable,

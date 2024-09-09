@@ -92,15 +92,14 @@ public class OAuthService {
 
     private UserDetails addOrFindByProfile(final OAuthProfile oAuthProfile) {
         final String providerId = oAuthProfile.getProviderId();
-        final Optional<Member> optionalMember = memberRepository.findMemberByProviderId(providerId);
-        if (optionalMember.isEmpty()) {
+        final Member optionalMember = memberRepository.findMemberByProviderId(providerId);
+        if (optionalMember == null) {
             final Member member = memberRepository.save(oAuthProfile.toEntity());
             return MemberDetails.from(member);
         }
 
-        final Member member = optionalMember.get();
-        member.updateProfileUrl(oAuthProfile.getProfileImageUrl());
-        return MemberDetails.from(member);
+        optionalMember.updateProfileUrl(oAuthProfile.getProfileImageUrl());
+        return MemberDetails.from(optionalMember);
     }
 
     private UserDetails findUserDetailsByProviderId(final String providerId) {

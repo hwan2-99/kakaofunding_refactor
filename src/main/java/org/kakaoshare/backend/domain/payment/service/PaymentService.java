@@ -150,8 +150,8 @@ public class PaymentService {
         final OrderDetails orderDetails = redisUtils.remove(approveResponse.partner_order_id(), OrderDetails.class);
 
         final String receiverProviderId = orderDetails.getReceiverProviderId();
-        final Member recipient = findMemberByProviderId(providerId); // TODO: 3/30/24 토큰에 저장된 값이 PK가 아니라 Member 엔티티를 가져와야 함
-        final Member receiver = findMemberByProviderId(receiverProviderId);
+        final Member recipient = memberRepository.findMemberByProviderId(providerId); // TODO: 3/30/24 토큰에 저장된 값이 PK가 아니라 Member 엔티티를 가져와야 함
+        final Member receiver = memberRepository.findMemberByProviderId(receiverProviderId);
 
         final Receipts receipts = getReceipts(recipient.getMemberId(), receiver, orderDetails);
         saveGifts(receipts);
@@ -168,7 +168,7 @@ public class PaymentService {
         final Payment payment = approveResponse.toEntity();
         final FundingOrderDetail fundingOrderDetail = redisUtils.remove(approveResponse.partner_order_id(), FundingOrderDetail.class);
         final Funding funding = findFundingById(fundingOrderDetail.fundingId());
-        final Member member = findMemberByProviderId(providerId);
+        final Member member = memberRepository.findMemberByProviderId(providerId);
         final Long amount = payment.getTotalPrice();
         saveOrReflectFundingDetail(payment, funding, member, amount);
         funding.increaseAccumulateAmount(amount);
@@ -460,10 +460,6 @@ public class PaymentService {
                 .toList();
     }
 
-    private Member findMemberByProviderId(final String providerId) {
-        return memberRepository.findMemberByProviderId(providerId)
-                .orElseThrow(() -> new MemberException(NOT_FOUND));
-    }
 
     private Funding findFundingById(final Long fundingId) {
         return fundingRepository.findById(fundingId)
