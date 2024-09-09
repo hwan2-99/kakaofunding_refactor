@@ -1,0 +1,3 @@
+1714579691617|2|rollback|connection 57|url jdbc:mysql://127.0.0.1:3306/kakaofunding?serverTimezone=Asia/Seoul&characterEncoding=UTF-8||
+1715917716027|1|rollback|connection 57|url jdbc:mysql://127.0.0.1:3306/kakaofunding?serverTimezone=Asia/Seoul&characterEncoding=UTF-8||
+1715917716034|1|rollback|connection 58|url jdbc:mysql://127.0.0.1:3306/kakaofunding?serverTimezone=Asia/Seoul&characterEncoding=UTF-8||

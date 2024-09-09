@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.member.service.OAuthServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:19" hostname="gimtaehwan-ui-MacBookAir.local" time="0.216">
+  <properties/>
+  <testcase name="신규 회원 카카오 로그인" classname="org.kakaoshare.backend.domain.member.service.OAuthServiceTest" time="0.198"/>
+  <testcase name="토큰 재발급" classname="org.kakaoshare.backend.domain.member.service.OAuthServiceTest" time="0.006"/>
+  <testcase name="기존 회원 카카오 로그인" classname="org.kakaoshare.backend.domain.member.service.OAuthServiceTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

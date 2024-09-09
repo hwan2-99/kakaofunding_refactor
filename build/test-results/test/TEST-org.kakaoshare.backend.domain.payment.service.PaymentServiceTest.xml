@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:19" hostname="gimtaehwan-ui-MacBookAir.local" time="0.164">
+  <properties/>
+  <testcase name="선물 결제 취소" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.08"/>
+  <testcase name="주문 페이지에서 결제 금액 조회" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.008"/>
+  <testcase name="결제 승인 (친구에게 선물, 옵션 선택 X)" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.008"/>
+  <testcase name="펀딩 결제 준비" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.007"/>
+  <testcase name="결제 준비" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.01"/>
+  <testcase name="펀딩 결제 승인" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.01"/>
+  <testcase name="결제 승인 (나에게 선물, 옵션 선택 X)" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.005"/>
+  <testcase name="개설한 펀딩 취소 시 기여한 모든 사용자 펀딩 결제 환불" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.009"/>
+  <testcase name="펀딩 결제 준비시 결제 금액이 남은 금액보다 작으면 예외 발생" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.003"/>
+  <testcase name="기여한 펀딩 부분 환불" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.005"/>
+  <testcase name="기여한 펀딩 전액 환불" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.008"/>
+  <testcase name="펀딩 목표 금액 달성 후 잔여 금액 결제 준비시 결제 금액이 잔여 금액보다 작으면 예외 발생" classname="org.kakaoshare.backend.domain.payment.service.PaymentServiceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

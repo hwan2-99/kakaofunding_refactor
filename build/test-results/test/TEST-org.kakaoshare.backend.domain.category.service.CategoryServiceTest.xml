@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.category.service.CategoryServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:18" hostname="gimtaehwan-ui-MacBookAir.local" time="0.188">
+  <properties/>
+  <testcase name="카테고리는 계층간 연관이 명확해야한다." classname="org.kakaoshare.backend.domain.category.service.CategoryServiceTest" time="0.13"/>
+  <testcase name="자식 카테고리는 자신의 자식 카테고리를 가지고 있지 않다" classname="org.kakaoshare.backend.domain.category.service.CategoryServiceTest" time="0.054"/>
+  <testcase name="부모 카테고리는 자신의 부모 ID를 가지고 있지 않다" classname="org.kakaoshare.backend.domain.category.service.CategoryServiceTest" time="0.002"/>
+  <system-out><![CDATA[StopWatch '': 0.001217875 seconds
+----------------------------------------
+Seconds       %       Task name
+----------------------------------------
+0.001217875   100%    find root
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

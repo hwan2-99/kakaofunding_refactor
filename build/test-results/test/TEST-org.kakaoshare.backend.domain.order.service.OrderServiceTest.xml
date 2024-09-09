@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.order.service.OrderServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:19" hostname="gimtaehwan-ui-MacBookAir.local" time="0.149">
+  <properties/>
+  <testcase name="주문 내역 조회 기간이 1년이 넘으면 예외 발생" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.112"/>
+  <testcase name="주문 내역 조회" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.005"/>
+  <testcase name="주문 내역 상세 조회" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.004"/>
+  <testcase name="주문 페이지에서 주문할 상품 조회" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.009"/>
+  <testcase name="주문 내역 상세 조회 시 PK가 파라미터 orderId인 레코드가 없으면 예외 발생" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.012"/>
+  <testcase name="주문 내역 조회 시 조회 시작, 종료일이 모두 NULL이면 예외 발생" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.002"/>
+  <testcase name="주문 내역 조회 시 종료일이 시작일보다 앞서면 예외 발생" classname="org.kakaoshare.backend.domain.order.service.OrderServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

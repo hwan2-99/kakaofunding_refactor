@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.funding.service.FundingServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:19" hostname="gimtaehwan-ui-MacBookAir.local" time="0.089">
+  <properties/>
+  <testcase name="성공적으로 펀딩 아이템 등록" classname="org.kakaoshare.backend.domain.funding.service.FundingServiceTest" time="0.084"/>
+  <testcase name="펀딩 진행 상황 조회 성공" classname="org.kakaoshare.backend.domain.funding.service.FundingServiceTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

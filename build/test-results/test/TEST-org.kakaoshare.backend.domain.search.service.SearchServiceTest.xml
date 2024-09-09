@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.search.service.SearchServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:20" hostname="gimtaehwan-ui-MacBookAir.local" time="0.063">
+  <properties/>
+  <testcase name="상품 검색 결과 가격 범위 필터링" classname="org.kakaoshare.backend.domain.search.service.SearchServiceTest" time="0.053"/>
+  <testcase name="브랜드별 상품 검색 결과" classname="org.kakaoshare.backend.domain.search.service.SearchServiceTest" time="0.004"/>
+  <testcase name="브랜드 검색 결과" classname="org.kakaoshare.backend.domain.search.service.SearchServiceTest" time="0.002"/>
+  <testcase name="상품 검색 결과" classname="org.kakaoshare.backend.domain.search.service.SearchServiceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

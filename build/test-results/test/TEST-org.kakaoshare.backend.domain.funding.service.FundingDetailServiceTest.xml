@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.kakaoshare.backend.domain.funding.service.FundingDetailServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-05-26T13:40:19" hostname="gimtaehwan-ui-MacBookAir.local" time="0.159">
+  <properties/>
+  <testcase name="[1] status=PROGRESS" classname="org.kakaoshare.backend.domain.funding.service.FundingDetailServiceTest" time="0.143"/>
+  <testcase name="[2] status=COMPLETE" classname="org.kakaoshare.backend.domain.funding.service.FundingDetailServiceTest" time="0.006"/>
+  <testcase name="[3] status=CANCEL_REFUND" classname="org.kakaoshare.backend.domain.funding.service.FundingDetailServiceTest" time="0.004"/>
+  <testcase name="내가 기여한 펀딩 내역 조회 (상태 필터링 X)" classname="org.kakaoshare.backend.domain.funding.service.FundingDetailServiceTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
