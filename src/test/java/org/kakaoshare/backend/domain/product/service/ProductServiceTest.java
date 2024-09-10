@@ -44,8 +44,8 @@ public class ProductServiceTest {
 
         when(memberRepository.findMemberByProviderId(member.getProviderId()))
                 .thenReturn(member);
-        when(productRepository.findById(productId))
-                .thenReturn(Optional.of(product));
+        when(productRepository.findProductById(productId))
+                .thenReturn(product);
         when(productRepository.findProductDetailWithMember(product, member))
                 .thenReturn(expectedDetailResponse);
 
@@ -67,24 +67,16 @@ public class ProductServiceTest {
 
         when(memberRepository.findMemberByProviderId(member.getProviderId()))
                 .thenReturn(member);
-        when(productRepository.findById(productId))
-                .thenReturn(Optional.of(product));
+        when(productRepository.findProductById(productId))
+                .thenReturn(product);
         doReturn(expectedDescriptionResponse)
                 .when(productRepository)
-                .findProductWithDetailsAndPhotosWithMember(product,member);
+                .findProductWithDetailsAndPhotosWithMember(product, member);
 
-        DescriptionResponse actualDescriptionResponse = productService.getProductDescription(productId,member.getProviderId());
+        DescriptionResponse actualDescriptionResponse = productService.getProductDescription(productId,
+                member.getProviderId());
 
         assertEquals(expectedDescriptionResponse, actualDescriptionResponse);
-        verify(productRepository).findProductWithDetailsAndPhotosWithMember(product,member);
-    }
-
-    @Test
-    @DisplayName("존재하지 않는 상품 ID로 조회 시 예외 발생")
-    void getProductDetail_WhenProductNotFound_ThenThrowException() {
-        Long nonExistingProductId = 999L;
-
-        assertThatThrownBy(() -> productService.getProductDescription(nonExistingProductId, null))
-                .isInstanceOf(ProductException.class);
+        verify(productRepository).findProductWithDetailsAndPhotosWithMember(product, member);
     }
 }

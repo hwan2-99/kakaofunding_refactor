@@ -40,7 +40,7 @@ public class ProductService {
 
 
     public DescriptionResponse getProductDescription(Long productId, @Nullable String providerId) {
-        Product product = findProductById(productId);
+        Product product = productRepository.findProductById(productId);
 
         if (providerId != null) {
             Member member = memberRepository.findMemberByProviderId(providerId);
@@ -51,7 +51,7 @@ public class ProductService {
     }
 
     public DetailResponse getProductDetail(Long productId, @Nullable String providerId) {
-        Product product = findProductById(productId);
+        Product product = productRepository.findProductById(productId);
 
         if (product == null) {
             throw new BusinessException(GlobalErrorCode.RESOURCE_NOT_FOUND);
@@ -87,7 +87,7 @@ public class ProductService {
      */
     @Transactional
     public WishResponse resisterProductInWishList(final String providerId, final Long productId, final WishType type) {
-        Product product = findProductById(productId);
+        Product product = productRepository.findProductById(productId);
 
         product.increaseWishCount();
 
@@ -102,16 +102,11 @@ public class ProductService {
      */
     @Transactional
     public WishResponse removeWishlist(final String providerId, final Long productId) {
-        Product product = findProductById(productId);
+        Product product = productRepository.findProductById(productId);
 
         product.decreaseWishCount();
 
         eventPublisher.publishEvent(WishCancelEvent.of(providerId, product));
         return WishResponse.from(product);
-    }
-
-    private Product findProductById(final Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new ProductException(ProductErrorCode.NOT_FOUND));
     }
 }

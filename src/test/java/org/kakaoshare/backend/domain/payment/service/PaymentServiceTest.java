@@ -202,7 +202,7 @@ class PaymentServiceTest {
         doReturn(orderDetails).when(redisUtils).remove(orderDetailKey, OrderDetails.class);
         doReturn(approveResponse).when(webClientService).approve(providerId, paymentSuccessRequest);
         doReturn(payment).when(paymentRepository).save(any());  // TODO: 3/16/24 save() 에서 new로 다른 객체가 생성되므로 any()로 대체
-        doReturn(Optional.of(member)).when(memberRepository).findMemberByProviderId(providerId);
+        doReturn(member).when(memberRepository).findMemberByProviderId(providerId);
         doReturn(cake).when(productRepository).getReferenceById(cake.getProductId());
         doReturn(coffee).when(productRepository).getReferenceById(coffee.getProductId());
         doReturn(null).when(giftRepository).saveAll(any());
@@ -263,8 +263,8 @@ class PaymentServiceTest {
         doReturn(orderDetails).when(redisUtils).remove(orderDetailKey, OrderDetails.class);
         doReturn(approveResponse).when(webClientService).approve(providerId, paymentSuccessRequest);
         doReturn(payment).when(paymentRepository).save(any());  // TODO: 3/16/24 save() 에서 new로 다른 객체가 생성되므로 any()로 대체
-        doReturn(Optional.of(recipientMember)).when(memberRepository).findMemberByProviderId(providerId);
-        doReturn(Optional.of(receiverMember)).when(memberRepository).findMemberByProviderId(receiverProviderId);
+        doReturn(recipientMember).when(memberRepository).findMemberByProviderId(providerId);
+        doReturn(receiverMember).when(memberRepository).findMemberByProviderId(receiverProviderId);
         doReturn(cake).when(productRepository).getReferenceById(cake.getProductId());
         doReturn(coffee).when(productRepository).getReferenceById(coffee.getProductId());
         doReturn(null).when(giftRepository).saveAll(any());
@@ -362,7 +362,7 @@ class PaymentServiceTest {
         doReturn(fundingOrderDetail).when(redisUtils).remove(orderDetailsKey, FundingOrderDetail.class);
         doReturn(Optional.of(funding)).when(fundingRepository).findById(funding.getFundingId());
         doReturn(Optional.empty()).when(fundingDetailRepository).findByFundingAndMember(funding, contributor);
-        doReturn(Optional.of(contributor)).when(memberRepository).findMemberByProviderId(providerId);
+        doReturn(contributor).when(memberRepository).findMemberByProviderId(providerId);
 
         final ProductSummaryResponse productSummaryResponse = ProductSummaryResponse.from(cake);
         final PaymentFundingSuccessResponse expect = new PaymentFundingSuccessResponse(PaymentSuccessReceiver.of(creator, providerId), productSummaryResponse, (long) attributeAmount);
