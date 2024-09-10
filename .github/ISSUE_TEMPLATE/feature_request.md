@@ -16,15 +16,6 @@ assignees: ''
 
 ---
 
----
-name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## 기능 제목
 
 ### 작업 상세 내용
