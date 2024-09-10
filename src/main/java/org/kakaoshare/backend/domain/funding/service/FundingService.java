@@ -49,7 +49,7 @@ public class FundingService {
 
     @Transactional
     public RegisterResponse registerFundingItem(Long productId, String providerId, RegisterRequest request) {
-        Product product = findProductById(productId);
+        Product product = productRepository.findProductById(productId);
         Member member = memberRepository.findMemberByProviderId(providerId);
 
         validateGoalAmount(request.goalAmount(), product.getPrice());
@@ -129,11 +129,6 @@ public class FundingService {
                 .orElseThrow(() -> new FundingException(FundingErrorCode.NOT_FOUND));
 
         return getFundingProgress(funding.getFundingId(), member.getMemberId());
-    }
-
-    private Product findProductById(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
     }
 
     private FundingProductDto findFundingProductDtoById(final Long fundingId) {
