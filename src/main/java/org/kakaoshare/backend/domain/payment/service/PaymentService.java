@@ -126,7 +126,7 @@ public class PaymentService {
                                              final PaymentFundingReadyRequest paymentFundingReadyRequest) {
         final int amount = paymentFundingReadyRequest.amount();
         final Long fundingId = paymentFundingReadyRequest.fundingId();
-        final Funding funding = findFundingById(fundingId);
+        final Funding funding = fundingRepository.findFundingById(fundingId);
         validateFundingAmount(funding, amount);
         validateFundingStatus(funding);
 
@@ -167,7 +167,7 @@ public class PaymentService {
         final KakaoPayApproveResponse approveResponse = webClientService.approve(providerId, paymentSuccessRequest);
         final Payment payment = approveResponse.toEntity();
         final FundingOrderDetail fundingOrderDetail = redisUtils.remove(approveResponse.partner_order_id(), FundingOrderDetail.class);
-        final Funding funding = findFundingById(fundingOrderDetail.fundingId());
+        final Funding funding = fundingRepository.findFundingById(fundingOrderDetail.fundingId());
         final Member member = memberRepository.findMemberByProviderId(providerId);
         final Long amount = payment.getTotalPrice();
         saveOrReflectFundingDetail(payment, funding, member, amount);
@@ -211,7 +211,7 @@ public class PaymentService {
     public void cancelFunding(final String providerId,
                               final PaymentFundingCancelRequest paymentFundingCancelRequest) {
         final Long fundingId = paymentFundingCancelRequest.fundingId();
-        final Funding funding = findFundingById(fundingId);
+        final Funding funding = fundingRepository.findFundingById(fundingId);
         validateMemberFunding(providerId, funding);
         validateAlreadyCanceled(funding, Funding::canceled);
         final List<FundingDetail> fundingDetails = fundingDetailRepository.findAllByFundingId(fundingId);
@@ -458,12 +458,6 @@ public class PaymentService {
         return values.stream()
                 .map(mapper)
                 .toList();
-    }
-
-
-    private Funding findFundingById(final Long fundingId) {
-        return fundingRepository.findById(fundingId)
-                .orElseThrow(() -> new FundingException(FundingErrorCode.NOT_FOUND));
     }
 
     private PaymentCancelDto findPaymentDtoById(final Long paymentId) {

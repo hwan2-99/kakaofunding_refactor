@@ -202,7 +202,7 @@ class PaymentServiceTest {
         doReturn(orderDetails).when(redisUtils).remove(orderDetailKey, OrderDetails.class);
         doReturn(approveResponse).when(webClientService).approve(providerId, paymentSuccessRequest);
         doReturn(payment).when(paymentRepository).save(any());  // TODO: 3/16/24 save() 에서 new로 다른 객체가 생성되므로 any()로 대체
-        doReturn(Optional.of(member)).when(memberRepository).findMemberByProviderId(providerId);
+        doReturn(member).when(memberRepository).findMemberByProviderId(providerId);
         doReturn(cake).when(productRepository).getReferenceById(cake.getProductId());
         doReturn(coffee).when(productRepository).getReferenceById(coffee.getProductId());
         doReturn(null).when(giftRepository).saveAll(any());
@@ -263,8 +263,8 @@ class PaymentServiceTest {
         doReturn(orderDetails).when(redisUtils).remove(orderDetailKey, OrderDetails.class);
         doReturn(approveResponse).when(webClientService).approve(providerId, paymentSuccessRequest);
         doReturn(payment).when(paymentRepository).save(any());  // TODO: 3/16/24 save() 에서 new로 다른 객체가 생성되므로 any()로 대체
-        doReturn(Optional.of(recipientMember)).when(memberRepository).findMemberByProviderId(providerId);
-        doReturn(Optional.of(receiverMember)).when(memberRepository).findMemberByProviderId(receiverProviderId);
+        doReturn(recipientMember).when(memberRepository).findMemberByProviderId(providerId);
+        doReturn(receiverMember).when(memberRepository).findMemberByProviderId(receiverProviderId);
         doReturn(cake).when(productRepository).getReferenceById(cake.getProductId());
         doReturn(coffee).when(productRepository).getReferenceById(coffee.getProductId());
         doReturn(null).when(giftRepository).saveAll(any());
@@ -302,7 +302,7 @@ class PaymentServiceTest {
         final KakaoPayReadyResponse readyResponse = createKakaoReadyResponse();
 
         doReturn(orderDetailsKey).when(orderNumberProvider).createOrderDetailKey();
-        doReturn(Optional.of(funding)).when(fundingRepository).findById(funding.getFundingId());
+        doReturn(funding).when(fundingRepository).findFundingById(funding.getFundingId());
         doReturn(readyResponse).when(webClientService).ready(providerId, List.of(paymentReadyProductDto), orderDetailsKey);
         final PaymentReadyResponse expect = createPaymentReadyResponse(orderDetailsKey, readyResponse);
         final PaymentReadyResponse actual = paymentService.readyFunding(providerId, paymentFundingReadyRequest);
@@ -321,6 +321,8 @@ class PaymentServiceTest {
 
         final PaymentFundingReadyRequest paymentFundingReadyRequest = new PaymentFundingReadyRequest(funding.getFundingId(), 12_000);
 
+        doReturn(funding).when(fundingRepository).findFundingById(funding.getFundingId());
+
         assertThatThrownBy(() -> paymentService.readyFunding(providerId, paymentFundingReadyRequest))
                 .isInstanceOf(FundingException.class);
     }
@@ -335,7 +337,7 @@ class PaymentServiceTest {
         final Funding funding = SAMPLE_FUNDING.생성(creator, cake, 9_000L, 9_000L);
 
         final PaymentFundingReadyRequest paymentFundingReadyRequest = new PaymentFundingReadyRequest(funding.getFundingId(), 12_000);
-
+        doReturn(funding).when(fundingRepository).findFundingById(funding.getFundingId());
         assertThatThrownBy(() -> paymentService.readyFunding(providerId, paymentFundingReadyRequest))
                 .isInstanceOf(FundingException.class);
     }
@@ -360,9 +362,9 @@ class PaymentServiceTest {
         final FundingOrderDetail fundingOrderDetail = new FundingOrderDetail(1L);
         final Funding funding = SAMPLE_FUNDING.생성(1L, creator, cake);
         doReturn(fundingOrderDetail).when(redisUtils).remove(orderDetailsKey, FundingOrderDetail.class);
-        doReturn(Optional.of(funding)).when(fundingRepository).findById(funding.getFundingId());
+        doReturn(funding).when(fundingRepository).findFundingById(funding.getFundingId());
         doReturn(Optional.empty()).when(fundingDetailRepository).findByFundingAndMember(funding, contributor);
-        doReturn(Optional.of(contributor)).when(memberRepository).findMemberByProviderId(providerId);
+        doReturn(contributor).when(memberRepository).findMemberByProviderId(providerId);
 
         final ProductSummaryResponse productSummaryResponse = ProductSummaryResponse.from(cake);
         final PaymentFundingSuccessResponse expect = new PaymentFundingSuccessResponse(PaymentSuccessReceiver.of(creator, providerId), productSummaryResponse, (long) attributeAmount);
@@ -422,7 +424,7 @@ class PaymentServiceTest {
         final Long fundingId = funding.getFundingId();
 
         // when
-        doReturn(Optional.of(funding)).when(fundingRepository).findById(fundingId);
+        doReturn(funding).when(fundingRepository).findFundingById(fundingId);
         doReturn(fundingDetails).when(fundingDetailRepository).findAllByFundingId(fundingId);
 
         // then

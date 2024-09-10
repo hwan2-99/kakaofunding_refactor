@@ -68,7 +68,7 @@ public class FundingServiceTest {
         Member member = MemberFixture.KAKAO.생성();
         Funding funding = FundingFixture.SAMPLE_FUNDING.생성(member, product);
 
-        given(productRepository.findById(productId)).willReturn(Optional.of(product));
+        when(productRepository.findProductById(productId)).thenReturn(product);
         given(memberRepository.findMemberByProviderId(providerId)).willReturn(member);
         given(fundingRepository.save(any(Funding.class))).willReturn(funding);
 
@@ -88,7 +88,7 @@ public class FundingServiceTest {
         Product product = ProductFixture.TEST_PRODUCT.생성();
         Member member = MemberFixture.KAKAO.생성();
 
-        given(productRepository.findById(productId)).willReturn(Optional.of(product));
+        when(productRepository.findProductById(productId)).thenReturn(product);
         given(memberRepository.findMemberByProviderId(providerId)).willReturn(member);
 
         assertThatThrownBy(() -> fundingService.registerFundingItem(productId, providerId, request))

@@ -63,7 +63,7 @@ public class CartServiceTest {
         OptionDetail defaultOptionDetail = new OptionDetail(1L, "Default Detail", 10, 1000L, null, defaultOption);
 
         when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
-        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+        when(productRepository.findProductById(productId)).thenReturn(product);
         when(optionRepository.findByProductId(productId)).thenReturn(List.of(defaultOption)); // 기본 옵션 설정
         when(optionDetailRepository.findByOptionId(defaultOption.getOptionsId())).thenReturn(
                 List.of(defaultOptionDetail)); // 기본 옵션 상세 설정
@@ -98,7 +98,7 @@ public class CartServiceTest {
         OptionDetail defaultOptionDetail = new OptionDetail(1L, "Default Detail", 10, 1000L, null, defaultOption);
 
         when(memberRepository.findMemberByProviderId(member.getProviderId())).thenReturn(member);
-        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+        when(productRepository.findProductById(productId)).thenReturn(product);
         when(optionRepository.findById(optionId)).thenReturn(Optional.of(defaultOption));
         when(optionDetailRepository.findById(optionDetailId)).thenReturn(Optional.of(defaultOptionDetail));
         when(cartRepository.findByMemberIdAndProductId(member.getMemberId(), productId)).thenReturn(Optional.empty());
@@ -173,7 +173,7 @@ public class CartServiceTest {
         Cart cart = new Cart(1L, 2, true, member, product, null, null);
 
         when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
-        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+        when(productRepository.findProductById(productId)).thenReturn(product);
         when(cartRepository.findByMemberIdAndProductId(member.getMemberId(), productId)).thenReturn(Optional.of(cart));
 
         cartService.updateItem(productId, providerId, newQuantity);
@@ -193,7 +193,7 @@ public class CartServiceTest {
         Cart cart = new Cart(1L, 2, true, member, product, null, null);
 
         when(memberRepository.findMemberByProviderId(providerId)).thenReturn(member);
-        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+        when(productRepository.findProductById(productId)).thenReturn(product);
         when(cartRepository.findByMemberIdAndProductId(member.getMemberId(), productId)).thenReturn(Optional.of(cart));
 
         cartService.deleteItem(productId, providerId);

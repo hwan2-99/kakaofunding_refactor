@@ -37,7 +37,7 @@ public class CartService {
     @Transactional
     public CartRegisterResponse registerItem(CartRegisterRequest request, String providerId) {
         Member member = memberRepository.findMemberByProviderId(providerId);
-        Product product = findProductByProductId(request.getProductId());
+        Product product = productRepository.findProductById(request.getProductId());
         Option option = resolveOption(request.getOptionId(), product);
         OptionDetail optionDetail = resolveOptionDetail(request.getOptionDetailId(), option);
 
@@ -64,7 +64,7 @@ public class CartService {
     @Transactional
     public CartRegisterResponse updateItem(Long productId, String providerId, int newQuantity) {
         Member member = memberRepository.findMemberByProviderId(providerId);
-        Product product = findProductByProductId(productId);
+        Product product = productRepository.findProductById(productId);
 
         Cart cart = cartRepository.findByMemberIdAndProductId(member.getMemberId(), product.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("No cart item"));
@@ -78,7 +78,7 @@ public class CartService {
     @Transactional
     public CartDeleteResponse deleteItem(Long productId, String providerId) {
         Member member = memberRepository.findMemberByProviderId(providerId);
-        Product product = findProductByProductId(productId);
+        Product product = productRepository.findProductById(productId);
 
         Cart cart = cartRepository.findByMemberIdAndProductId(member.getMemberId(), product.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("No cart item"));
@@ -116,11 +116,6 @@ public class CartService {
         Member member = memberRepository.findMemberByProviderId(providerId);
         cartRepository.deleteByMemberId(member.getMemberId());
         return CartClearResponse.from();
-    }
-
-    private Product findProductByProductId(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid product ID"));
     }
 
     private Option findOptionById(Long optionId) {
